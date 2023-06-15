@@ -1,0 +1,119 @@
+
+
+
+:root {
+  --glow-color: hsl(186deg 100% 96%);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #343f4f;
+}
+
+.glowing-btn {
+  position: relative;
+  background: none;
+  height: 200px;
+  padding: 0;
+  perspective: 4em;
+  animation: border-flicker 2s linear infinite;
+}
+
+/* we could change the background color on .glowing-btn:hover insteead of using :after but I used this because
+I need an animation on opacity --farshid- */
+/* .glowing-btn:hover {
+    background-color: var(--glow-color);
+} */
+
+
+
+img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.glowing-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0.1;
+  filter: blur(1em);
+  transform: translateY(100%) rotateX(95deg) scale(1, 0.2);
+  background: var(--glow-color);
+  pointer-events: none;
+  transition: opacity 300ms linear;
+}
+
+.glowing-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  z-index: -1;
+  background-color: var(--glow-color);
+  transition: opacity 300ms linear;
+}
+
+
+
+.glowing-btn:hover {
+  animation: none;
+}
+
+
+
+.glowing-btn:hover:before {
+  filter: blur(1.5em);
+  opacity: 1;
+}
+
+.glowing-btn:hover:after {
+  opacity: 1;
+}
+
+
+
+@keyframes border-flicker {
+  0% {
+    opacity: 0.1;
+  }
+  2% {
+    opacity: 1;
+  }
+  4% {
+    opacity: 0.1;
+  }
+
+  8% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
